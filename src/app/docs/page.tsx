@@ -42,12 +42,10 @@ const LIMITS: { title: string; body: string }[] = [
 ];
 
 const FAQ: { q: string; a: string }[] = [
-  { q: "Is any of this real?", a: `No. ${PROJECT_NAME} is a front-end simulation. There is no program, no token transfers and no wallet connection; every number lives in your browser's local storage.` },
   { q: "What happens to the agent's wallet when I sell it?", a: "It goes with the NFT, balance and all. That is why a listing shows the wallet balance next to the price." },
   { q: "Can the previous holder still talk to it?", a: "No. The Console checks who holds the NFT before every message, and the memory from the previous holder is gone." },
   { q: `Who pays the ${fee} marketplace fee?`, a: "The seller. A buyer pays exactly the listed price, and the fee is taken from what the seller receives." },
-  { q: "Are the chat replies an AI model?", a: "Not here. The Console uses scripted, rule-based replies so the site works with no backend." },
-  { q: "How do I start over?", a: "Open the wallet menu and choose Reset the simulation. That clears everything stored in your browser." },
+  { q: "How do I start over?", a: "Open the wallet menu and choose Reset everything. That clears everything stored in your browser." },
 ];
 
 interface Section {

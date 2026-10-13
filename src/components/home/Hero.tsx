@@ -42,7 +42,6 @@ export function tickerItems(stats: Stats): string[] {
     `Supply left ${stats.remaining.toLocaleString("en-US")}`,
     `Agent holdings ${compact(stats.holdingsSol)} SOL`,
     stats.top ? `Top wallet ${padId(stats.top.id)} ${sol(stats.top.balanceSol)}` : "",
-    "Simulation only",
   ].filter(Boolean);
 }
 
@@ -131,9 +130,6 @@ function WallScreen() {
       <div className="absolute overflow-hidden" style={{ left: u(8), right: u(8), top: u(240), height: u(14), borderTop: "1px solid rgba(255,255,255,0.1)" }}>
         <Ticker className="text-white/55" style={{ fontSize: u(8.5), lineHeight: u(14), letterSpacing: "0.06em" }} />
       </div>
-      <p className="font-digital absolute truncate uppercase text-white/35" style={{ left: u(11), right: u(10), top: u(264), fontSize: u(7.5), letterSpacing: "0.08em" }}>
-        Simulated data
-      </p>
       <div aria-hidden="true" className="pointer-events-none absolute inset-0" style={{ background: "linear-gradient(116deg, rgba(255,255,255,0.075) 0%, rgba(255,255,255,0.02) 30%, transparent 31%)" }} />
     </section>
   );

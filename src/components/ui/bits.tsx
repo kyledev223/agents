@@ -14,18 +14,6 @@ export function TimeAgo({ at, className = "" }: { at: number; className?: string
   );
 }
 
-export function DemoBadge({ className = "" }: { className?: string }) {
-  return (
-    <span
-      className={`inline-flex items-center gap-1.5 rounded-full bg-paper-2 px-2.5 py-0.5 text-[12px] font-semibold text-ink-2 ${className}`}
-      title="Nothing on this site touches a real blockchain or wallet."
-    >
-      <span className="h-1.5 w-1.5 rounded-full bg-warm" aria-hidden="true" />
-      Demo / simulation
-    </span>
-  );
-}
-
 export function Tag({ tone = "neutral", children }: { tone?: "neutral" | "win" | "loss" | "dark"; children: ReactNode }) {
   const tones = {
     neutral: "bg-paper-2 text-ink-2",

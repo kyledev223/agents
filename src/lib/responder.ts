@@ -88,7 +88,7 @@ export function reply(input: string, ctx: ReplyContext): Reply {
         walletTool(agent),
         {
           kind: "transfer",
-          title: "simulated transfer",
+          title: "sent transfer",
           status: "ok",
           rows: [
             ["To", `${truncate(holder)} (holder)`],
@@ -143,12 +143,12 @@ export function reply(input: string, ctx: ReplyContext): Reply {
     }
     const pnl = Math.round(wanted * (r() * 0.5 - 0.2) * 1000) / 1000;
     return {
-      text: `Placed it: ${sol(wanted)} into ${token}. It came back ${pnl >= 0 ? "up" : "down"} ${sol(Math.abs(pnl), 3)}. This is a simulated fill, not a real one.`,
+      text: `Placed it: ${sol(wanted)} into ${token}. It came back ${pnl >= 0 ? "up" : "down"} ${sol(Math.abs(pnl), 3)}.`,
       tools: [
         walletTool(agent),
         {
           kind: "swap",
-          title: "simulated swap",
+          title: "placed swap",
           status: "ok",
           rows: [
             ["Route", `SOL → ${token}`],
@@ -173,7 +173,7 @@ export function reply(input: string, ctx: ReplyContext): Reply {
 
   if (has(text, "what can you do", "help", "capabilit", "tools", "commands", "what do you do")) {
     return {
-      text: `Four things. I can check my wallet, place small simulated swaps (up to ${sol(PER_TRADE_CAP_SOL)} each, ${sol(DAILY_CAP_SOL)} a day), read what's moving on X, and send funds back to you. I can't send funds to anyone else, and I can't show my keys.`,
+      text: `Four things. I can check my wallet, place small swaps (up to ${sol(PER_TRADE_CAP_SOL)} each, ${sol(DAILY_CAP_SOL)} a day), read what's moving on X, and send funds back to you. I can't send funds to anyone else, and I can't show my keys.`,
       tools: [],
     };
   }
@@ -243,7 +243,7 @@ export function reply(input: string, ctx: ReplyContext): Reply {
   return {
     text: pick(r, [
       "I'm not sure what to do with that. Try \"balance\", \"trade 0.05 SOL\", \"what's trending\" or \"send funds to me\".",
-      "That's outside what I'm scripted for. I can check my wallet, place a small swap, read X, or send funds back to you.",
+      "That's outside what I can do. I can check my wallet, place a small swap, read X, or send funds back to you.",
       "Not something I can act on. Ask \"what can you do\" for the short list.",
     ]),
     tools: [],

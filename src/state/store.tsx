@@ -416,7 +416,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
 
   const reset = () => {
     commit(emptyState(Date.now()));
-    toast("Simulation reset");
+    toast("Everything reset");
   };
 
   const value: Store = {

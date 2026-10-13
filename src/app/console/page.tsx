@@ -178,7 +178,7 @@ function Chat({ agent }: { agent: Agent }) {
           </Button>
         </form>
         <p className="mt-2 text-[12.5px] text-ink-3">
-          Scripted replies, no model. Caps: {sol(PER_TRADE_CAP_SOL)} per trade, {sol(DAILY_CAP_SOL)} per day. Transfers go to you only.
+          Caps: {sol(PER_TRADE_CAP_SOL)} per trade, {sol(DAILY_CAP_SOL)} per day. Transfers go to you only.
         </p>
       </div>
     </section>
@@ -201,7 +201,7 @@ export default function ConsolePage() {
     body = (
       <Panel eyebrow="Holders only" title="Connect to sign in">
         <p className="max-w-[560px] text-[15px] leading-relaxed text-ink-2">
-          An agent only talks to the wallet that holds it. Connect one of the pretend wallets and any agents it holds will show up here.
+          An agent only talks to the wallet that holds it. Connect a wallet and any agents it holds will show up here.
         </p>
         <Button size="lg" className="mt-4" onClick={() => setWalletModalOpen(true)}>
           Connect wallet

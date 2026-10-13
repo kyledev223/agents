@@ -94,11 +94,11 @@ await go("/agents/413/");
 await page.getByRole("button", { name: "0.5 SOL" }).click();
 await go("/console/");
 await say("trade 0.05 SOL");
-check("tool card: simulated swap", (await page.getByText("simulated swap").count()) > 0);
+check("tool card: placed swap", (await page.getByText("placed swap").count()) > 0);
 await say("trade 5 SOL");
 check("per-trade cap enforced", (await page.getByText("checked trade cap").count()) > 0);
 await say("send 0.1 SOL to me");
-check("holder withdrawal works", (await page.getByText("simulated transfer").count()) > 0);
+check("holder withdrawal works", (await page.getByText("sent transfer").count()) > 0);
 await page.reload({ waitUntil: "networkidle" });
 check("chat history persists", (await page.getByText(/Four things/).count()) > 0);
 

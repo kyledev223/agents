@@ -29,7 +29,7 @@ To start over in the browser: wallet menu → **Reset the simulation**.
 | What | Where |
 | --- | --- |
 | Project name, ticker, tagline | `src/config/site.ts` (`PROJECT_NAME`, `TICKER`, `TAGLINE`) |
-| X and pump.fun URLs | `src/config/links.ts` (`TWITTER_URL`, `PUMPFUN_URL`) |
+| X, pump.fun and Phantom URLs | `src/config/links.ts` (`TWITTER_URL`, `PUMPFUN_URL`, `PHANTOM_URL`) |
 | Supply, burn cost, fee, trade caps, fake program address | `src/config/site.ts` |
 | Logo mark | `LogoMark` in `src/components/chrome/nav.tsx`, and `src/app/icon.svg` |
 | Design tokens (colours, fonts, keyframes) | `tailwind.config.ts`, `src/app/globals.css` |
@@ -55,7 +55,7 @@ All artwork is original inline SVG. Each agent's avatar is generated from its nu
 
 ## Trying the full flow
 
-1. **Connect wallet** → pick *Lantern* (2,350,000 $CLAW).
+1. **Connect wallet** in the top bar → pick *Lantern* (2,350,000 $CLAW). (The button inside the Mint panel links out to Phantom instead.)
 2. **Mint** → burn → the new agent (#0413) is revealed.
 3. It shows up under **Agents** and in the **Console**. Fund it from its page, then chat:
    `balance`, `trade 0.05 SOL`, `send 0.1 SOL to me`, `send 1 SOL to my friend`.

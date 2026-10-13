@@ -7,9 +7,9 @@ const HOUR = 60 * MIN;
 
 // The wallets behind the "Connect wallet" modal. Names are invented on purpose.
 export const FAKE_WALLETS: FakeWallet[] = [
-  { key: "lantern", name: "Lantern", blurb: "Demo wallet A", address: fakeAddress("lantern", "Lan"), token: 2_350_000, sol: 14.2 },
-  { key: "tidepool", name: "Tidepool", blurb: "Demo wallet B", address: fakeAddress("tidepool", "Tde"), token: 1_150_000, sol: 32.5 },
-  { key: "backlot", name: "Backlot", blurb: "Demo wallet C", address: fakeAddress("backlot", "Bck"), token: 640_000, sol: 6.8 },
+  { key: "lantern", name: "Lantern", blurb: "Wallet A", address: fakeAddress("lantern", "Lan"), token: 2_350_000, sol: 14.2 },
+  { key: "tidepool", name: "Tidepool", blurb: "Wallet B", address: fakeAddress("tidepool", "Tde"), token: 1_150_000, sol: 32.5 },
+  { key: "backlot", name: "Backlot", blurb: "Wallet C", address: fakeAddress("backlot", "Bck"), token: 640_000, sol: 6.8 },
 ];
 
 export const walletByAddress = (address: string) => FAKE_WALLETS.find((w) => w.address === address);

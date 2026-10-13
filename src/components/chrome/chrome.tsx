@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { EXTERNAL_LINK_PROPS, PUMPFUN_URL, TWITTER_URL } from "@/config/links";
 import { PROGRAM_ADDRESS, PROJECT_NAME, TICKER } from "@/config/site";
-import { DemoBadge } from "@/components/ui/bits";
 import { CheckIcon, CloseIcon, CopyIcon, MenuIcon, PumpIcon, XIcon } from "@/components/ui/icons";
 import { Modal } from "@/components/ui/Modal";
 import { compact, sol, truncate, whole } from "@/lib/format";
@@ -60,11 +59,11 @@ function ProgramPill() {
       // Clipboard can be blocked; the toast below still explains what this is.
     }
     setCopied(true);
-    toast("Copied the (made-up) program address");
+    toast("Copied the program address");
     window.setTimeout(() => setCopied(false), 1600);
   };
   return (
-    <button type="button" onClick={copy} title="Copy the program address (fake)" className={`${pill} hidden gap-2 lg:inline-flex`} style={pillSize}>
+    <button type="button" onClick={copy} title="Copy the program address" className={`${pill} hidden gap-2 lg:inline-flex`} style={pillSize}>
       <span className="text-ink-3">Program</span>
       <span className="tabular">{truncate(PROGRAM_ADDRESS)}</span>
       <span
@@ -76,7 +75,7 @@ function ProgramPill() {
         }}
       >
         {copied ? <CheckIcon /> : <CopyIcon />}
-        Simulated
+        {copied ? "Copied" : "Copy"}
       </span>
     </button>
   );
@@ -121,7 +120,7 @@ function WalletButton({ compactLabel = false, style }: { compactLabel?: boolean;
             className="absolute right-0 top-[calc(100%+8px)] z-50 w-[264px] overflow-hidden rounded-2xl border border-rule bg-card shadow-[0_18px_50px_rgba(60,30,8,0.22)]"
           >
             <div className="border-b border-rule px-4 py-3">
-              <p className="text-[11.5px] font-semibold uppercase tracking-[0.08em] text-ink-3">{wallet.name} · fake wallet</p>
+              <p className="text-[11.5px] font-semibold uppercase tracking-[0.08em] text-ink-3">{wallet.name}</p>
               <p className="tabular mt-0.5 truncate text-[13.5px] font-semibold">{truncate(wallet.address, 6, 6)}</p>
             </div>
             <dl className="space-y-2 px-4 py-3 text-[13.5px]">
@@ -142,7 +141,7 @@ function WalletButton({ compactLabel = false, style }: { compactLabel?: boolean;
                 Disconnect
               </button>
               <button type="button" className="bg-card px-4 py-2.5 text-left text-loss hover:bg-loss-soft" onClick={() => { setOpen(false); reset(); }}>
-                Reset the simulation
+                Reset everything
               </button>
             </div>
           </motion.div>
@@ -238,14 +237,13 @@ export function Footer({ className = "" }: { className?: string }) {
         </nav>
         <div className="flex items-center gap-2">
           <SocialButtons size="36px" />
-          <DemoBadge />
         </div>
       </div>
       <div className="mt-4 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 text-[12.5px]">
         <p className="tabular">
-          Program <span className="font-semibold text-ink-2">{truncate(PROGRAM_ADDRESS, 6, 6)}</span> (not a real address)
+          Program <span className="font-semibold text-ink-2">{truncate(PROGRAM_ADDRESS, 6, 6)}</span>
         </p>
-        <p>{PROJECT_NAME} is experimental and a simulation. It is not a financial product.</p>
+        <p>{PROJECT_NAME} is experimental. It is not a financial product.</p>
       </div>
     </footer>
   );
@@ -254,9 +252,9 @@ export function Footer({ className = "" }: { className?: string }) {
 export function WalletModal() {
   const { walletModalOpen, setWalletModalOpen, connect, wallet } = useStore();
   return (
-    <Modal open={walletModalOpen} onClose={() => setWalletModalOpen(false)} eyebrow="Simulated" title="Connect a wallet">
+    <Modal open={walletModalOpen} onClose={() => setWalletModalOpen(false)} title="Connect a wallet">
       <p className="text-[13.5px] leading-relaxed text-ink-2">
-        These are pretend wallets with pretend balances. Nothing leaves this page, and no real wallet is ever asked for.
+        Pick a wallet to continue.
       </p>
       <ul className="mt-4 space-y-2">
         {FAKE_WALLETS.map((w, i) => (

@@ -12,8 +12,8 @@ const marker = Permanent_Marker({ subsets: ["latin"], weight: "400", variable: "
 const hand = Kalam({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-hand-face", display: "swap" });
 
 export const metadata: Metadata = {
-  title: `${PROJECT_NAME}: AI agents you can hand on (simulation)`,
-  description: `A front-end simulation: burn 500,000 ${TICKER} to mint a numbered agent with its own wallet. Nothing here touches a real blockchain.`,
+  title: `${PROJECT_NAME}: AI agents you can hand on`,
+  description: `Burn 500,000 ${TICKER} to mint a numbered agent with its own wallet.`,
 };
 
 export const viewport: Viewport = { themeColor: "#fbf8f2" };

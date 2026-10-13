@@ -70,7 +70,7 @@ export function BuyButton({ agent, size = "sm", className = "" }: { agent: Agent
       <Button size={size} className={className} onClick={() => (wallet ? setOpen(true) : setWalletModalOpen(true))}>
         Buy · {sol(price)}
       </Button>
-      <Modal open={open} onClose={() => setOpen(false)} eyebrow="Simulated purchase" title={`Buy ${padId(agent.id)}`} dismissable={!signing}>
+      <Modal open={open} onClose={() => setOpen(false)} eyebrow="Purchase" title={`Buy ${padId(agent.id)}`} dismissable={!signing}>
         <Summary
           agent={agent}
           rows={[
@@ -132,7 +132,7 @@ export function ListButton({ agent, size = "sm", className = "" }: { agent: Agen
       >
         List for sale
       </Button>
-      <Modal open={open} onClose={() => setOpen(false)} eyebrow="Simulated listing" title={`List ${padId(agent.id)}`} dismissable={!signing}>
+      <Modal open={open} onClose={() => setOpen(false)} eyebrow="Listing" title={`List ${padId(agent.id)}`} dismissable={!signing}>
         <Summary agent={agent} rows={[["Wallet balance (goes with it)", sol(agent.balanceSol, 3)]]} />
         <div className="mt-4">
           <label htmlFor={`price-${agent.id}`} className="mb-1.5 block text-[13.5px] font-semibold text-ink">

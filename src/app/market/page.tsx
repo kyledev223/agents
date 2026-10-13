@@ -6,7 +6,7 @@ import { HolderName, ListingStatus, agentHref } from "@/components/agents/AgentC
 import { AgentAvatar } from "@/components/agents/robot";
 import { TradeActions } from "@/components/agents/trade";
 import { BoardPage } from "@/components/scene/BoardPage";
-import { DemoBadge, Stat, TimeAgo } from "@/components/ui/bits";
+import { Stat, TimeAgo } from "@/components/ui/bits";
 import { ButtonLink } from "@/components/ui/Button";
 import { MARKET_FEE } from "@/config/site";
 import { padId, sol } from "@/lib/format";
@@ -49,7 +49,6 @@ export default function MarketPage() {
       eyebrow="Marketplace"
       title="Market"
       intro="Agents change hands here. The wallet travels with the NFT; the memory is wiped on the way."
-      aside={<DemoBadge />}
     >
       <div className="grid gap-3 @2xl:grid-cols-3">
         <Stat label="Agents minted" value={stats.minted.toLocaleString("en-US")} hint={`${stats.remaining.toLocaleString("en-US")} left of 2,000`} />
@@ -201,7 +200,7 @@ export default function MarketPage() {
 
       {!wallet && (
         <div className="mt-8 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-rule bg-card/90 px-5 py-4">
-          <p className="text-[14.5px] text-ink-2">Connect a pretend wallet to buy, or mint one to have something to sell.</p>
+          <p className="text-[14.5px] text-ink-2">Connect a wallet to buy, or mint one to have something to sell.</p>
           <ButtonLink href="/mint" size="sm">
             Mint an agent
           </ButtonLink>

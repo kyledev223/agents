@@ -6,9 +6,10 @@ import { useEffect, useState } from "react";
 import { agentHref } from "@/components/agents/AgentCard";
 import { AgentAvatar } from "@/components/agents/robot";
 import { BoardPage } from "@/components/scene/BoardPage";
-import { DemoBadge, Panel, Tag } from "@/components/ui/bits";
+import { Panel, Tag } from "@/components/ui/bits";
 import { Button, buttonClass } from "@/components/ui/Button";
 import { Modal } from "@/components/ui/Modal";
+import { EXTERNAL_LINK_PROPS, PHANTOM_URL } from "@/config/links";
 import { MAX_SUPPLY, MINT_COST, TICKER } from "@/config/site";
 import { compact, padId, whole } from "@/lib/format";
 import { agentIdentity } from "@/lib/seed";
@@ -65,7 +66,7 @@ function BurnAnimation() {
 }
 
 export default function MintPage() {
-  const { wallet, ready, stats, mint, toast, setWalletModalOpen, agentById } = useStore();
+  const { wallet, ready, stats, mint, toast, agentById } = useStore();
   const [phase, setPhase] = useState<Phase>("idle");
   const [mintedId, setMintedId] = useState<number | null>(null);
 
@@ -113,7 +114,6 @@ export default function MintPage() {
           that starts empty. Only {MAX_SUPPLY.toLocaleString("en-US")} will ever exist.
         </>
       }
-      aside={<DemoBadge />}
     >
       <div className="grid grid-cols-[minmax(0,1fr)] items-start gap-6 @4xl:grid-cols-[minmax(0,1fr)_340px] @5xl:grid-cols-[minmax(0,1fr)_400px]">
         <div className="space-y-6">
@@ -163,23 +163,36 @@ export default function MintPage() {
 
         <div className="space-y-6 @4xl:sticky @4xl:top-6">
           <Panel eyebrow="Up next" title="Your agent" bodyClassName="">
-            <div className="grid gap-4 p-5 @xl:grid-cols-2 @4xl:grid-cols-1 @5xl:grid-cols-2">
-              <div className="rounded-xl bg-board px-4 py-4 text-white">
-                <p className="font-condensed text-[15px] font-bold uppercase tracking-[0.06em]">Just minted</p>
-                <div className="mt-3 flex items-center gap-3 border-t border-board-rule pt-3">
-                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border-2 border-dashed border-white/25 font-digital text-[15px] text-white/60">?</span>
+            <div className="p-5">
+              <div className="relative overflow-hidden rounded-xl px-4 py-4 text-white" style={{ background: "radial-gradient(130% 90% at 20% 0%, #12303a 0%, #0a161d 50%, #060a0e 100%)" }}>
+                <div aria-hidden="true" className="pointer-events-none absolute inset-0" style={{ background: "repeating-linear-gradient(0deg, rgba(255,255,255,0.028) 0 1px, transparent 1px 3px)" }} />
+                <div className="relative flex items-center gap-4">
+                  <span className="relative grid h-[72px] w-[72px] shrink-0 place-items-center overflow-hidden rounded-2xl shadow-[0_0_0_1px_rgba(94,234,212,0.45),0_0_18px_rgba(94,234,212,0.25)]">
+                    <AgentAvatar id={nextId} size={72} className="!rounded-none !border-0 scale-125 blur-[7px] saturate-150" />
+                    <span className="absolute inset-0 bg-black/25" />
+                    <span className="font-condensed absolute text-[30px] font-bold leading-none text-white drop-shadow">?</span>
+                  </span>
                   <div className="min-w-0 flex-1">
-                    <p className="font-condensed tabular truncate text-[15px] font-bold uppercase">{padId(nextId)}</p>
-                    <p className="tabular text-[12.5px] text-white/60">0.00 SOL</p>
+                    <p className="font-digital flex items-center gap-1.5 text-[11px] uppercase tracking-[0.08em] text-glow-green">
+                      <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-glow-green" aria-hidden="true" />
+                      Next in line
+                    </p>
+                    <p className="font-condensed tabular mt-1 text-[30px] font-bold uppercase leading-none tracking-[0.02em]">{padId(nextId)}</p>
+                    <p className="mt-1 truncate text-[14px] text-white/75">{preview.name}</p>
                   </div>
                 </div>
-              </div>
-              <div className="flex items-center gap-3 rounded-xl border border-rule bg-paper px-4 py-4">
-                <span className="h-11 w-11 shrink-0 rounded-full border-2 border-dashed border-rule" />
-                <div className="min-w-0 flex-1">
-                  <p className="truncate text-[15px] font-semibold">{ready ? preview.name : "Agent name"}</p>
-                  <p className="text-[13px] text-ink-3">Look revealed on mint</p>
-                </div>
+                <dl className="relative mt-4 grid grid-cols-3 gap-2 border-t border-white/10 pt-3">
+                  {[
+                    ["Wallet", "0.00 SOL"],
+                    ["Memory", "Blank"],
+                    ["Look", "Sealed"],
+                  ].map(([label, value]) => (
+                    <div key={label} className="min-w-0">
+                      <dt className="font-digital text-[10.5px] uppercase tracking-[0.08em] text-white/45">{label}</dt>
+                      <dd className="font-digital tabular truncate text-[14px] text-white/90">{value}</dd>
+                    </div>
+                  ))}
+                </dl>
               </div>
             </div>
             <div className="px-5 pb-5 pt-2">
@@ -215,14 +228,14 @@ export default function MintPage() {
                   {soldOut ? "Sold out" : enough ? `Burn ${compact(MINT_COST)} ${TICKER} and mint` : `Not enough ${TICKER}`}
                 </Button>
               ) : (
-                <Button size="lg" className="mt-4 w-full" onClick={() => setWalletModalOpen(true)}>
+                <a href={PHANTOM_URL} {...EXTERNAL_LINK_PROPS} className={buttonClass({ size: "lg", className: "mt-4 w-full" })}>
                   Connect wallet
-                </Button>
+                </a>
               )}
               <p className="mt-2.5 text-[13px] leading-relaxed text-ink-3">
-                {wallet ? "This is a pretend burn from a pretend balance." : "Connect one of the pretend wallets to try the flow."}
+                {wallet ? "A burn is permanent." : "Opens Phantom in a new tab. To mint here, use Connect wallet in the top bar."}
               </p>
-              <p className="mt-1.5 text-[12.5px] leading-relaxed text-ink-3">Simulation only. Nothing here is a financial product.</p>
+              <p className="mt-1.5 text-[12.5px] leading-relaxed text-ink-3">Not a financial product.</p>
             </div>
           </Panel>
         </div>
@@ -232,7 +245,7 @@ export default function MintPage() {
         open={phase !== "idle"}
         onClose={close}
         dismissable={phase !== "burning"}
-        eyebrow={phase === "reveal" ? "Minted" : "Simulated burn"}
+        eyebrow={phase === "reveal" ? "Minted" : "Burn"}
         title={phase === "confirm" ? `Mint agent ${padId(nextId)}?` : phase === "burning" ? `Burning ${whole(MINT_COST)} ${TICKER}` : minted ? `Meet ${padId(minted.id)}` : "Minted"}
       >
         <AnimatePresence mode="wait">
@@ -257,7 +270,7 @@ export default function MintPage() {
                 </div>
               </dl>
               <p className="mt-3 rounded-xl bg-paper-2 px-3.5 py-2.5 text-[12.5px] leading-relaxed text-ink-2">
-                A burn cannot be undone. Here it is only a number in your browser, but the real thing would be final.
+                A burn cannot be undone.
               </p>
               <div className="mt-4 flex gap-2">
                 <Button variant="outline" size="lg" className="flex-1" onClick={close}>
