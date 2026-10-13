@@ -12,5 +12,3 @@ export const MARKET_FEE = 0.02; // taken from the seller's side
 export const PER_TRADE_CAP_SOL = 0.25;
 export const DAILY_CAP_SOL = 1;
 
-// Made up. Nothing here is deployed anywhere.
-export const PROGRAM_ADDRESS = "CLAWg7Rk2mVq9LtXeN4sHd8PzY3bWuJ6fA5cTn1oQxSim";

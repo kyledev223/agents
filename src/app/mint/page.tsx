@@ -9,7 +9,7 @@ import { BoardPage } from "@/components/scene/BoardPage";
 import { Panel, Tag } from "@/components/ui/bits";
 import { Button, buttonClass } from "@/components/ui/Button";
 import { Modal } from "@/components/ui/Modal";
-import { EXTERNAL_LINK_PROPS, PHANTOM_URL } from "@/config/links";
+import { EXTERNAL_LINK_PROPS, WALLET_URL } from "@/config/links";
 import { MAX_SUPPLY, MINT_COST, TICKER } from "@/config/site";
 import { compact, padId, whole } from "@/lib/format";
 import { agentIdentity } from "@/lib/seed";
@@ -228,12 +228,12 @@ export default function MintPage() {
                   {soldOut ? "Sold out" : enough ? `Burn ${compact(MINT_COST)} ${TICKER} and mint` : `Not enough ${TICKER}`}
                 </Button>
               ) : (
-                <a href={PHANTOM_URL} {...EXTERNAL_LINK_PROPS} className={buttonClass({ size: "lg", className: "mt-4 w-full" })}>
+                <a href={WALLET_URL} {...EXTERNAL_LINK_PROPS} className={buttonClass({ size: "lg", className: "mt-4 w-full" })}>
                   Connect wallet
                 </a>
               )}
               <p className="mt-2.5 text-[13px] leading-relaxed text-ink-3">
-                {wallet ? "A burn is permanent." : "Opens Phantom in a new tab. To mint here, use Connect wallet in the top bar."}
+                {wallet ? "A burn is permanent." : "Opens OKX Wallet in a new tab. To mint here, use Connect wallet in the top bar."}
               </p>
               <p className="mt-1.5 text-[12.5px] leading-relaxed text-ink-3">Not a financial product.</p>
             </div>

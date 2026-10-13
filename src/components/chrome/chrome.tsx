@@ -4,19 +4,13 @@ import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { EXTERNAL_LINK_PROPS, PUMPFUN_URL, TWITTER_URL } from "@/config/links";
-import { PROGRAM_ADDRESS, PROJECT_NAME, TICKER } from "@/config/site";
-import { CheckIcon, CloseIcon, CopyIcon, MenuIcon, PumpIcon, XIcon } from "@/components/ui/icons";
+import { PROJECT_NAME, TICKER } from "@/config/site";
+import { CloseIcon, MenuIcon, PumpIcon, XIcon } from "@/components/ui/icons";
 import { Modal } from "@/components/ui/Modal";
 import { compact, sol, truncate, whole } from "@/lib/format";
 import { FAKE_WALLETS } from "@/lib/seed";
 import { useStore } from "@/state/store";
 import { LogoMark, NAV, useActive } from "./nav";
-
-const pillSize = {
-  height: "max(36px, calc(40 * var(--u)))",
-  fontSize: "max(12.5px, calc(13 * var(--u)))",
-  paddingInline: "max(14px, calc(16 * var(--u)))",
-} as const;
 
 const pill =
   "inline-flex items-center rounded-full border border-outline bg-white/85 font-medium leading-none text-ink backdrop-blur transition-colors hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2";
@@ -46,38 +40,6 @@ export function SocialButtons({ size = "max(36px, calc(40 * var(--u)))", classNa
         <PumpIcon style={{ width: "54%", height: "54%" }} />
       </a>
     </>
-  );
-}
-
-function ProgramPill() {
-  const { toast } = useStore();
-  const [copied, setCopied] = useState(false);
-  const copy = async () => {
-    try {
-      await navigator.clipboard.writeText(PROGRAM_ADDRESS);
-    } catch {
-      // Clipboard can be blocked; the toast below still explains what this is.
-    }
-    setCopied(true);
-    toast("Copied the program address");
-    window.setTimeout(() => setCopied(false), 1600);
-  };
-  return (
-    <button type="button" onClick={copy} title="Copy the program address" className={`${pill} hidden gap-2 lg:inline-flex`} style={pillSize}>
-      <span className="text-ink-3">Program</span>
-      <span className="tabular">{truncate(PROGRAM_ADDRESS)}</span>
-      <span
-        className="-mr-1.5 inline-flex items-center gap-1 rounded-full bg-paper-2 font-semibold text-ink-2"
-        style={{
-          fontSize: "max(10.5px, calc(11 * var(--u)))",
-          paddingBlock: "max(4px, calc(4.5 * var(--u)))",
-          paddingInline: "max(7px, calc(8 * var(--u)))",
-        }}
-      >
-        {copied ? <CheckIcon /> : <CopyIcon />}
-        {copied ? "Copied" : "Copy"}
-      </span>
-    </button>
   );
 }
 
@@ -159,7 +121,6 @@ export function TopChrome() {
       style={{ right: "max(16px, calc(22 * var(--u)))", top: "max(14px, calc(20 * var(--u)))", gap: "max(8px, calc(10 * var(--u)))" }}
     >
       <SocialButtons />
-      <ProgramPill />
       <WalletButton
         style={{
           height: "max(36px, calc(40 * var(--u)))",
@@ -240,9 +201,6 @@ export function Footer({ className = "" }: { className?: string }) {
         </div>
       </div>
       <div className="mt-4 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 text-[12.5px]">
-        <p className="tabular">
-          Program <span className="font-semibold text-ink-2">{truncate(PROGRAM_ADDRESS, 6, 6)}</span>
-        </p>
         <p>{PROJECT_NAME} is experimental. It is not a financial product.</p>
       </div>
     </footer>
