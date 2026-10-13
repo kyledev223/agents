@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# visual-check output (regenerate with npm run shots:ours)
+/screenshots/

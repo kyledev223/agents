@@ -60,7 +60,7 @@ for (const width of WIDTHS) {
     await page.waitForTimeout(2500);
     await mkdir(OUT, { recursive: true });
     await page.screenshot({
-      path: new URL(`${name}-${width}.png`, OUT).pathname.replace(/^\/([A-Za-z]:)/, "$1"),
+      path: fileURLToPath(new URL(`${name}-${width}.png`, OUT)),
       fullPage: true,
     });
 
