@@ -6,8 +6,9 @@ import { agentHref } from "@/components/agents/AgentCard";
 import { AgentAvatar } from "@/components/agents/robot";
 import { BoardPage } from "@/components/scene/BoardPage";
 import { Panel, Tag } from "@/components/ui/bits";
-import { Button, ButtonLink } from "@/components/ui/Button";
+import { Button, ButtonLink, buttonClass } from "@/components/ui/Button";
 import { ShieldIcon, WrenchIcon } from "@/components/ui/icons";
+import { EXTERNAL_LINK_PROPS, WALLET_URL } from "@/config/links";
 import { DAILY_CAP_SOL, PER_TRADE_CAP_SOL } from "@/config/site";
 import { padId, sol, truncate } from "@/lib/format";
 import { useHash } from "@/lib/hooks";
@@ -186,7 +187,7 @@ function Chat({ agent }: { agent: Agent }) {
 }
 
 export default function ConsolePage() {
-  const { wallet, ready, myAgents, setWalletModalOpen } = useStore();
+  const { wallet, ready, myAgents } = useStore();
   const [picked, setPicked] = useState<number | null>(null);
   // Deep link from an agent page or the mint reveal: /console#413
   const fromHash = Number(useHash());
@@ -203,9 +204,9 @@ export default function ConsolePage() {
         <p className="max-w-[560px] text-[15px] leading-relaxed text-ink-2">
           An agent only talks to the wallet that holds it. Connect a wallet and any agents it holds will show up here.
         </p>
-        <Button size="lg" className="mt-4" onClick={() => setWalletModalOpen(true)}>
+        <a href={WALLET_URL} {...EXTERNAL_LINK_PROPS} className={buttonClass({ size: "lg", className: "mt-4" })}>
           Connect wallet
-        </Button>
+        </a>
       </Panel>
     );
   } else if (!active) {

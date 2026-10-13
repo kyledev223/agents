@@ -22,11 +22,16 @@ const go = async (path) => {
   await page.goto(`${BASE}${path}`, { waitUntil: "networkidle" });
   await page.waitForTimeout(500);
 };
+// Every "Connect wallet" button now links out, so the test picks the built-in
+// wallet by writing it to the site's stored state and reloading.
 const connect = async (name) => {
-  await page.getByRole("button", { name: /^(Connect wallet|Wallet menu)$/ }).first().click();
-  if (await page.getByRole("button", { name: "Switch wallet" }).count()) await page.getByRole("button", { name: "Switch wallet" }).click();
-  await page.getByRole("dialog").getByRole("button", { name: new RegExp(name) }).click();
-  await page.waitForTimeout(400);
+  await page.evaluate((key) => {
+    const KEY = "agents-sim:v1";
+    const state = JSON.parse(localStorage.getItem(KEY) ?? "null") ?? { v: 1, anchor: Date.now() };
+    localStorage.setItem(KEY, JSON.stringify({ ...state, walletKey: key }));
+  }, name.toLowerCase());
+  await page.reload({ waitUntil: "networkidle" });
+  await page.waitForTimeout(500);
 };
 
 // --- fresh storage: every page renders -------------------------------------

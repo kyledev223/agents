@@ -4,6 +4,7 @@ import Link from "next/link";
 import { BoardPage } from "@/components/scene/BoardPage";
 import { Panel, Tag, TimeAgo } from "@/components/ui/bits";
 import { Button, ButtonLink, buttonClass } from "@/components/ui/Button";
+import { EXTERNAL_LINK_PROPS, WALLET_URL } from "@/config/links";
 import { padId, sol, truncate } from "@/lib/format";
 import type { ActivityEvent } from "@/lib/types";
 import { useStore } from "@/state/store";
@@ -24,7 +25,7 @@ const ACTIVITY_LABEL: Record<ActivityEvent["kind"], string> = {
 };
 
 export function AgentDetail({ id }: { id: number }) {
-  const { agentById, wallet, ready, historyOf, activityOf, fund, toast, setWalletModalOpen, stats } = useStore();
+  const { agentById, wallet, ready, historyOf, activityOf, fund, toast, stats } = useStore();
   const agent = agentById(id);
 
   if (!agent) {
@@ -156,9 +157,9 @@ export function AgentDetail({ id }: { id: number }) {
               )}
               <TradeActions agent={agent} size="lg" className="w-full" />
               {!wallet && ready && (
-                <Button variant="outline" size="lg" className="w-full" onClick={() => setWalletModalOpen(true)}>
+                <a href={WALLET_URL} {...EXTERNAL_LINK_PROPS} className={buttonClass({ variant: "outline", size: "lg", className: "w-full" })}>
                   Connect wallet
-                </Button>
+                </a>
               )}
             </div>
 

@@ -55,7 +55,8 @@ All artwork is original inline SVG. Each agent's avatar is generated from its nu
 
 ## Trying the full flow
 
-1. **Connect wallet** in the top bar → pick *Lantern* (2,350,000 $CLAW). (The button inside the Mint panel links out to OKX Wallet instead.)
+1. Every **Connect wallet** button links out to `WALLET_URL` (OKX). To use the built-in wallets, click any
+   **Buy** button on the Market while disconnected and pick *Lantern* (2,350,000 $CLAW) in the picker.
 2. **Mint** → burn → the new agent (#0413) is revealed.
 3. It shows up under **Agents** and in the **Console**. Fund it from its page, then chat:
    `balance`, `trade 0.05 SOL`, `send 0.1 SOL to me`, `send 1 SOL to my friend`.

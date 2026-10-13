@@ -233,7 +233,7 @@ export default function MintPage() {
                 </a>
               )}
               <p className="mt-2.5 text-[13px] leading-relaxed text-ink-3">
-                {wallet ? "A burn is permanent." : "Opens OKX Wallet in a new tab. To mint here, use Connect wallet in the top bar."}
+                {wallet ? "A burn is permanent." : "Opens OKX Wallet in a new tab."}
               </p>
               <p className="mt-1.5 text-[12.5px] leading-relaxed text-ink-3">Not a financial product.</p>
             </div>

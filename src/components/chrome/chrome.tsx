@@ -2,8 +2,9 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { EXTERNAL_LINK_PROPS, PUMPFUN_URL, TWITTER_URL } from "@/config/links";
+import { EXTERNAL_LINK_PROPS, PUMPFUN_URL, TWITTER_URL, WALLET_URL } from "@/config/links";
 import { PROJECT_NAME, TICKER } from "@/config/site";
 import { CloseIcon, MenuIcon, PumpIcon, XIcon } from "@/components/ui/icons";
 import { Modal } from "@/components/ui/Modal";
@@ -60,9 +61,9 @@ function WalletButton({ compactLabel = false, style }: { compactLabel?: boolean;
 
   if (!wallet || !ready) {
     return (
-      <button type="button" className={cls} style={style} onClick={() => setWalletModalOpen(true)}>
+      <a href={WALLET_URL} {...EXTERNAL_LINK_PROPS} className={cls} style={style}>
         {compactLabel ? "Connect" : "Connect wallet"}
-      </button>
+      </a>
     );
   }
 
@@ -114,20 +115,26 @@ function WalletButton({ compactLabel = false, style }: { compactLabel?: boolean;
 }
 
 // Fixed top-right cluster on desktop.
+// The home page keeps its hero clear: no wallet button there.
+const useIsHome = () => usePathname() === "/";
+
 export function TopChrome() {
+  const home = useIsHome();
   return (
     <div
       className="vt-chrome fixed z-50 hidden items-center md:flex"
       style={{ right: "max(16px, calc(22 * var(--u)))", top: "max(14px, calc(20 * var(--u)))", gap: "max(8px, calc(10 * var(--u)))" }}
     >
       <SocialButtons />
-      <WalletButton
-        style={{
-          height: "max(36px, calc(40 * var(--u)))",
-          fontSize: "max(13px, calc(13.5 * var(--u)))",
-          paddingInline: "max(16px, calc(20 * var(--u)))",
-        }}
-      />
+      {!home && (
+        <WalletButton
+          style={{
+            height: "max(36px, calc(40 * var(--u)))",
+            fontSize: "max(13px, calc(13.5 * var(--u)))",
+            paddingInline: "max(16px, calc(20 * var(--u)))",
+          }}
+        />
+      )}
     </div>
   );
 }
@@ -135,6 +142,7 @@ export function TopChrome() {
 export function MobileHeader() {
   const [open, setOpen] = useState(false);
   const isActive = useActive();
+  const home = useIsHome();
   return (
     <header className="vt-mobile-header sticky top-0 z-50 border-b border-rule bg-paper/95 backdrop-blur md:hidden">
       <div className="flex h-14 items-center justify-between px-4">
@@ -153,7 +161,7 @@ export function MobileHeader() {
           >
             <XIcon className="h-[15px] w-[15px]" />
           </a>
-          <WalletButton compactLabel style={{ height: 34, fontSize: 13, paddingInline: 12 }} />
+          {!home && <WalletButton compactLabel style={{ height: 34, fontSize: 13, paddingInline: 12 }} />}
           <button type="button" aria-expanded={open} aria-label="Menu" className="rounded-full p-2 text-[20px] hover:bg-paper-2" onClick={() => setOpen((v) => !v)}>
             {open ? <CloseIcon /> : <MenuIcon />}
           </button>
