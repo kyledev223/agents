@@ -156,7 +156,7 @@ function WalletButton({ compactLabel = false, style }: { compactLabel?: boolean;
 export function TopChrome() {
   return (
     <div
-      className="fixed z-50 hidden items-center md:flex"
+      className="vt-chrome fixed z-50 hidden items-center md:flex"
       style={{ right: "max(16px, calc(22 * var(--u)))", top: "max(14px, calc(20 * var(--u)))", gap: "max(8px, calc(10 * var(--u)))" }}
     >
       <SocialButtons />
@@ -176,7 +176,7 @@ export function MobileHeader() {
   const [open, setOpen] = useState(false);
   const isActive = useActive();
   return (
-    <header className="sticky top-0 z-50 border-b border-rule bg-paper/95 backdrop-blur md:hidden">
+    <header className="vt-mobile-header sticky top-0 z-50 border-b border-rule bg-paper/95 backdrop-blur md:hidden">
       <div className="flex h-14 items-center justify-between px-4">
         <Link href="/" aria-label={`${PROJECT_NAME} home`} className="font-display flex items-center gap-2 text-[22px] font-black leading-none" onClick={() => setOpen(false)}>
           <span className="text-[21px] leading-[0]">
@@ -294,7 +294,7 @@ export function WalletModal() {
 export function Toasts() {
   const { toasts } = useStore();
   return (
-    <div className="pointer-events-none fixed inset-x-0 bottom-5 z-[110] flex flex-col items-center gap-2 px-4" aria-live="polite">
+    <div className="vt-toasts pointer-events-none fixed inset-x-0 bottom-5 z-[110] flex flex-col items-center gap-2 px-4" aria-live="polite">
       <AnimatePresence>
         {toasts.map((t) => (
           <motion.div

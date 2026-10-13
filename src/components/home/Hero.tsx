@@ -274,7 +274,7 @@ export function HeroDesktop() {
 
   return (
     <section
-      className="relative hidden h-svh overflow-hidden bg-scene md:block"
+      className="vt-scene relative hidden h-svh overflow-hidden bg-scene md:block"
       style={{ "--u": "min(max(calc(100svh / 940), calc(100vw / 2071)), calc(100svh / 752), calc(100vw / 1400))" } as CSSProperties}
       aria-label="The agents' office"
       onMouseMove={onMove}

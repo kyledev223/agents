@@ -74,6 +74,71 @@ body {
   }
 }
 
+/* Page transitions (View Transitions API, started by React's <ViewTransition>
+   at the root of every page). Layers, bottom to top:
+     page    - whatever is left of the page (all of it on mobile): out, then in
+     scene   - the full-viewport artwork, shared by every page, so rooms crossfade
+     board   - the content on the whiteboard / monitor: wiped, then written
+     chrome  - top bar, mobile header and toasts stay put above everything
+   Browsers without support simply switch pages as before. */
+.vt-chrome {
+  view-transition-name: top-chrome;
+}
+.vt-mobile-header {
+  view-transition-name: mobile-header;
+}
+.vt-toasts {
+  view-transition-name: toasts;
+}
+@media (min-width: 48rem) {
+  .vt-scene {
+    view-transition-name: scene;
+  }
+  .vt-board {
+    view-transition-name: board;
+  }
+}
+
+:root {
+  --vt-out: 0.12s;
+  --vt-in: 0.3s;
+  --vt-scene: 0.42s;
+}
+
+::view-transition-group(scene),
+::view-transition-old(scene),
+::view-transition-new(scene) {
+  animation-duration: var(--vt-scene);
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* The board holds its old position until the old content is gone, then jumps
+   (whiteboard and monitor are different sizes), so nothing is ever stretched. */
+::view-transition-group(board) {
+  animation-duration: var(--vt-out);
+  animation-timing-function: step-end;
+}
+::view-transition-old(board),
+::view-transition-old(.page-out) {
+  animation: var(--vt-out) ease-in both vt-out;
+}
+::view-transition-new(board),
+::view-transition-new(.page-in) {
+  animation: var(--vt-in) cubic-bezier(0.2, 0.7, 0.2, 1) var(--vt-out) both vt-in;
+}
+@keyframes vt-out {
+  to {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+@keyframes vt-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   ::before,
@@ -81,5 +146,10 @@ body {
     transition-duration: 0.001ms !important;
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
+  }
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
   }
 }

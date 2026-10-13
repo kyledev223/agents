@@ -10,7 +10,8 @@
     "preview": "node scripts/serve-out.mjs",
     "test:flow": "node scripts/flow-test.mjs",
     "shots:reference": "node scripts/capture-reference.mjs",
-    "shots:ours": "node scripts/capture-ours.mjs"
+    "shots:ours": "node scripts/capture-ours.mjs",
+    "shots:transitions": "node scripts/capture-transition.mjs"
   },
   "dependencies": {
     "framer-motion": "^14.1.0",

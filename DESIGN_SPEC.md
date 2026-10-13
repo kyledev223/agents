@@ -112,6 +112,22 @@ Scale (px, size/line-height):
 - `clock-sweep` 24s linear; `pm-fill` scaleX .04 → 1, 6s; Tailwind `ping` and `pulse` for live dots.
 - `prefers-reduced-motion: reduce` collapses every animation and transition to ~0ms.
 
+### Page transitions (ours; the reference has none)
+
+Built on the View Transitions API through React's `<ViewTransition>`, which wraps the root of every
+page. Timings are the `--vt-*` variables in `globals.css`.
+
+| Layer | What it is | Motion |
+| --- | --- | --- |
+| `scene` | The full-viewport artwork (office, whiteboard room, desk, line-up) | 420ms crossfade; identical rooms do not visibly change |
+| `board` | Content on the whiteboard or monitor | old fades up and out in 120ms, new rises 10px and fades in over 300ms |
+| page | Everything else, which is the whole page below 768px | same out/in as `board` |
+| `top-chrome`, `mobile-header`, `toasts` | Persistent UI | held in place above the rest |
+
+The boundary must be the outermost node a page renders; React ignores enter/exit on a
+`<ViewTransition>` nested inside a newly inserted element. Browsers without the API switch pages
+instantly, and reduced-motion disables the animations.
+
 ## 7. Mapping to this project
 
 | Reference | Here | Surface |

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { ViewTransition, useState } from "react";
 import { RoleBust, RoleFigure } from "@/components/agents/robot";
 import { Footer } from "@/components/chrome/chrome";
 import { SideNav } from "@/components/chrome/nav";
@@ -148,9 +148,10 @@ export default function RolesPage() {
   const pick = (key: RoleKey) => setPicked(selected === key ? null : key);
 
   return (
+    <ViewTransition enter="page-in" exit="page-out" default="none">
     <main>
       {/* desktop: full-bleed group shot */}
-      <div className="fixed inset-0 hidden overflow-hidden bg-scene md:block">
+      <div className="vt-scene fixed inset-0 hidden overflow-hidden bg-scene md:block">
         <Lineup selected={selected} onPick={pick} p="rod" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[110] h-[42%] bg-gradient-to-t from-[#1a0d05]/85 via-[#1a0d05]/45 to-transparent" aria-hidden="true" />
         <div className="pointer-events-none absolute bottom-0 left-0 z-[120] px-8 pb-8">
@@ -203,5 +204,6 @@ export default function RolesPage() {
         <Footer />
       </div>
     </main>
+    </ViewTransition>
   );
 }

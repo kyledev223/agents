@@ -1,6 +1,6 @@
 "use client";
 
-import type { CSSProperties, ReactNode } from "react";
+import { ViewTransition, type CSSProperties, type ReactNode } from "react";
 import { Footer } from "@/components/chrome/chrome";
 import { SideNav } from "@/components/chrome/nav";
 import { BoardRoomBack, BoardRoomFront, DeskRoomBack, SURFACES, type Surface } from "./rooms";
@@ -31,12 +31,15 @@ export function BoardPage({ surface, eyebrow, title, intro, aside, maxWidth = ""
   } as CSSProperties;
   const box = { "--box-x": u(s.x), "--box-y": u(s.y), "--box-w": u(s.w), "--box-h": u(s.h) } as CSSProperties;
 
+  // <ViewTransition> has to be the outermost node a page renders: React ignores
+  // enter/exit on one that sits inside a newly inserted DOM element.
   return (
+    <ViewTransition enter="page-in" exit="page-out" default="none">
     <main>
-      <div className="board-frame" style={frame}>
+      <div className="board-frame vt-scene" style={frame}>
         <div className="board-layer" style={layer}>
           <div className="pointer-events-none hidden md:block">{surface === "whiteboard" ? <BoardRoomBack /> : <DeskRoomBack />}</div>
-          <div data-surface={surface} className="board-box @container" style={box}>
+          <div data-surface={surface} className="board-box vt-board @container" style={box}>
             <div className={`mx-auto px-4 pb-20 pt-6 md:px-[clamp(22px,3.4cqw,52px)] md:pb-10 md:pt-[clamp(18px,2.6cqw,40px)] ${maxWidth}`}>
               <header className="mb-8 flex flex-wrap items-end justify-between gap-x-8 gap-y-4">
                 <div className="min-w-0">
@@ -55,5 +58,6 @@ export function BoardPage({ surface, eyebrow, title, intro, aside, maxWidth = ""
         <SideNav card />
       </div>
     </main>
+    </ViewTransition>
   );
 }
